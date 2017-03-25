@@ -3,11 +3,12 @@
 ## Installation
 
 ```
-npm install --save react-router-redux@next
+git clone
+npm install
 ```
 
 ## Usage
 
-Here's a basic idea of how it works:
-
-```js
+```
+npm run dev
+npm run build
