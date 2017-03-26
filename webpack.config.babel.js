@@ -32,6 +32,10 @@ module.exports = {
         modules: ['node_modules'],
         extensions: ['.js', '.scss']
     },
+    //test loader
+    resolveLoader: {
+        modules: ['node_modules', 'test']
+    },
 
     module: {
         rules: [{
@@ -46,12 +50,20 @@ module.exports = {
             }]
         }, {
             test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
+            include: /node_modules/,
             loader: "file-loader?name=styles/fonts/[name].[ext]"
+        }, {
+            test: /\.png$/,
+            include: __dirname + '/dev/static/images',
+            loader: "file-loader?name=images/[name].[ext]"
         }, {
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
                 use: [{
-                    loader: 'css-loader'
+                    loader: 'css-loader',
+                    options: {
+                        minimize: NODE_ENV !== 'development'
+                    }
                 }, {
                     loader: 'postcss-loader',
                     options: {
@@ -65,6 +77,13 @@ module.exports = {
                     loader: 'resolve-url-loader'
                 }, {
                     loader: 'sass-loader'
+                }, {
+                    loader: 'test-loader',
+                    options: {
+                        subStr: /105px/g,
+                        newSubStr: '200px',
+                        regExpFlags: 'g'
+                    }
                 }]
             })
         }]
@@ -79,15 +98,15 @@ module.exports = {
             children: true
         })*/
         new CopyWebpackPlugin([{
-            from: __dirname + '/dev/static/images',
-            to: __dirname + '/public/images'
+            from: __dirname + '/dev/static/images/users',
+            to: __dirname + '/public/images/users'
         }]),
         new ExtractTextPlugin('styles/styles.css')
     ],
 
     watch: NODE_ENV === 'development',
 
-    devtool: (NODE_ENV === 'development') ? 'inline-source-map' : false,
+    devtool: (NODE_ENV === 'development') ? 'cheap-module-source-map' : false,
 
     devServer: {
         port: 8080,
