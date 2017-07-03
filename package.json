@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/dmitrySheshko/react-redux-webpack.git"
   },
-  "author": "",
+  "author": "Dmitry Sheshko, dm.sheshko@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dmitrySheshko/react-redux-webpack/issues"
